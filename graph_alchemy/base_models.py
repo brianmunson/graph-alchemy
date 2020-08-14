@@ -1,10 +1,12 @@
 from __future__ import annotations
+import pickle
 from pickle import PicklingError
 from collections.abc import Hashable
 from collections import Counter, namedtuple
 from typing import Any, Set, List, Tuple, Iterable
 
 # TODO no clean way to enforce hashability/pickleability of initializing objects
+# also no way to do type enforcement with weight, which is a float
 Edge = namedtuple("Edge", ("source", "target", "weight"), defaults=(None, None, 0.0))
 
 # class Edge(object):
@@ -53,8 +55,21 @@ class BaseGraph(object):
     def __init__(self, edges_iter: Iterable[Edge]=()):
         edges = set()
         for edge in edges_iter:
+            assert self.__is_valid_edge(edge)
             edges.add(edge)
         self.edges = edges
+
+    def __is_valid_edge(self, edge: Edge):
+        source = edge.source
+        target = edge.target
+        for vertex in [source, target]:
+            if not isinstance(vertex, Hashable):
+                raise ValueError(f"Vertices must be hashable: {str(vertex)} is not")
+            try:
+                pickle.dumps(vertex)
+            except PicklingError:
+                raise ValueError(f"Vertices must be pickleable: {str(vertex)} is not")
+        return True
 
     @property
     def vertices(self) -> Iterable:

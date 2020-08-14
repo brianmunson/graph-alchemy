@@ -39,8 +39,8 @@ class DirectedGraph(BaseGraph):
                 yield connected_component(self, edge.source)
 
     def adjacency_matrix(self) -> (Dict[Any, int], np.ndarray):
-        # TODO requirements says return list of vertices
-        # we return vertex has instead because it gives a way
+        # FIXME requirements says return list of vertices
+        # we return vertex hash instead because it gives a way
         # to index into the adjacency matrix by vertex
         vertex_hash = {}
         for i, vertex in enumerate(self.vertices):

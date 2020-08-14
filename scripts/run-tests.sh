@@ -4,7 +4,7 @@ docker run -d \
     -p 5432:5432 \
     --name graph-alchemy \
     -e POSTGRES_PASSWORD=password \
-    postgres:12-alpine > /dev/null
+    postgres-graph:latest > /dev/null
 . ./venv/bin/activate
 pytest -s \
     --cov-branch \

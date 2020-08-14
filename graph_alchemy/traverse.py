@@ -19,6 +19,9 @@ def neighborhood(graph: BaseGraph, vertex: Any) -> BaseGraph:
 def connected_component(graph: BaseGraph, vertex: Any) -> BaseGraph:
     # TODO this does not but should check if the vertex is
     # in the graph in the first place!
+    # FIXME slightly incorrect, as path generates an equivalence
+    # relation which forces directionality to not matter: i.e., this 
+    # property should be the same whether the graph is directed or not
     """
     Breadth-first search. Returns set of vertices for which
     there exists a path from the given vertex. A path from v
@@ -71,7 +74,7 @@ def find_path(graph: BaseGraph, start_vertex: Any, end_vertex: Any) -> BaseGraph
                 new_path.append(neighbor)
                 path_queue.append(new_path)
                 if neighbor == end_vertex:
-                    return new_path
+                    return BaseGraph(new_path)
             visited_vertices.append(current_path_end)
     return BaseGraph()
 
@@ -102,6 +105,8 @@ def all_paths(graph: BaseGraph, start_vertex: Any, end_vertex: Any) -> List[Base
                 new_path.append(neighbor)
                 path_queue.append(new_path)
                 if neighbor == end_vertex:
-                    valid_paths.append(new_path)
+                    valid_paths.append(BaseGraph(new_path))
             visited_vertices.append(current_path_end)
+    if len(valid_paths) == 0:
+        valid_paths.append(BaseGraph())
     return valid_paths

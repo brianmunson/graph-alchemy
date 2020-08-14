@@ -1,8 +1,11 @@
-.PHONY: docs setup lint clean test
-.ONESHELL: docs setup lint clean test
+.PHONY: build docs setup lint clean test
+.ONESHELL: build docs setup lint clean test
 
 SHELL := /bin/bash
-package := graph
+package := graph_alchemy
+
+build:
+	. ./scripts/build.sh
 
 clean:
 	rm -fR ./dist
