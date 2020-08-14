@@ -1,0 +1,13 @@
+{
+    "python.linting.mypyArgs": [],
+    "python.linting.mypyEnabled": true,
+    "python.analysis.typeshedPaths": [
+      "venv/lib/python3.6/site-packages/typeshed/"
+    ],
+    "python.autoComplete.typeshedPaths": [
+      "venv/lib/python3.6/site-packages/typeshed/"
+    ],
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": ["--line-length 80"]
+  }
